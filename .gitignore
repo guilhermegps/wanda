@@ -17,5 +17,7 @@
 .metadata/**/JBoss*/**
 *.iml
 .idea/
+.dbeaver/
 .tern-project
 .attach*
+.factorypath

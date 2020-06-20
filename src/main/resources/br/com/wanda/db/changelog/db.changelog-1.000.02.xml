@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<!-- Inserindo dados de acesso básicos -->
+	<changeSet author="guilherme.gps" id="changelog-1.000.02">
+		<createTable tableName="tb_tipo_evento">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="1">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="descricao" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		
+		<createTable tableName="tb_evento">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="1">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_usuario" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_tipo_evento" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="descricao" type="TEXT">
+				<constraints nullable="false" />
+			</column>
+			<column name="ip_usuario" type="VARCHAR(40)">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_usuario"  
+            baseTableName="tb_evento"  
+            baseTableSchemaName="public"  
+            constraintName="fk_evento_usuario"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_usuario"  
+            referencedTableSchemaName="public" /> 
+		
+		<addForeignKeyConstraint  baseColumnNames="id_tipo_evento"  
+            baseTableName="tb_evento"  
+            baseTableSchemaName="public"  
+            constraintName="fk_evento_tipo_evento"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_tipo_evento"  
+            referencedTableSchemaName="public" /> 
+
+		<createTable tableName="tb_evento_usuario">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_evento" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_usuario" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_evento"  
+            baseTableName="tb_evento_usuario"  
+            baseTableSchemaName="public"  
+            constraintName="fk_evento_usuario_evento"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_evento"  
+            referencedTableSchemaName="public" /> 
+		
+		<addForeignKeyConstraint  baseColumnNames="id_usuario"  
+            baseTableName="tb_evento_usuario"  
+            baseTableSchemaName="public"  
+            constraintName="fk_evento_usuario_usuario"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_usuario"  
+            referencedTableSchemaName="public" /> 
+            
+		<!-- Inserindo tipo de evento -->
+		<insert schemaName="public" tableName="tb_tipo_evento">
+			<column name="id" type="uuid" value="359478a8-f1f6-486e-bdc2-504bbead5fbc" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Inclusão de Registro" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_tipo_evento">
+			<column name="id" type="uuid" value="e2f4f40c-0340-4404-ad32-1a14692de709" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Alteração de Registro" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_tipo_evento">
+			<column name="id" type="uuid" value="d3320a32-b803-40f9-ab35-13c29833f214" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Desativação de Registro" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_tipo_evento">
+			<column name="id" type="uuid" value="a6c4efd6-0407-4bfb-9400-dd6618b0b069" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Remoção de Registro" />
+    	</insert>
+		
+	</changeSet>
+</databaseChangeLog>
