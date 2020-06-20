@@ -2,11 +2,17 @@ package br.com.projeto.wanda;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
+/**
+ * @author <a href="https://github.com/guilhermegps"> Guilherme GPS </a>
+ * @since 1.1
+ *
+ */
 public class WLogger implements Serializable {
 
-	private static final Logger log = Logger.getLogger(WLogger.class);
+	private static final Log log = LogFactory.getLog(WLogger.class);
 	private static final String STACK = "\n    StackTrace: \n";
 
 	private enum SeverityEnum {

@@ -8,11 +8,16 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.core.annotation.Order;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
+
+import br.com.projeto.wanda.WLogger;
 
 @Component
 @Order(1)
@@ -28,9 +33,19 @@ public class AuthorizationFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
-		req.getRequestURI();
-
+//		WLogger.debug(req.getRequestURI());
+		
+		if(!req.getRequestURI().equals("/logout")) {
+			CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class
+                    .getName());
+            if (csrf != null) {
+                res.addCookie(new Cookie("XSRF-TOKEN", csrf.getToken()));
+                res.addCookie(new Cookie("XSRF-HEADERNAME", csrf.getHeaderName()));
+            }
+		}
+		
 		chain.doFilter(request, response);
 	}
 

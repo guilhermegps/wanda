@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<!-- Inserindo dados de acesso básicos -->
+	<changeSet author="guilherme.gps" id="changelog-1.000.01">
+		<!-- Criando Perfis -->
+		<insert schemaName="public" tableName="tb_perfil">
+			<column name="id" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="ADMIN" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_perfil">
+			<column name="id" type="uuid" value="e0bdf978-646c-4580-92a3-a631b78ec88b" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="USER" />
+    	</insert>
+    	<!-- Criando Páginas -->
+		<insert schemaName="public" tableName="tb_pagina">
+			<column name="id" type="uuid" value="9f3beaca-f4e3-4a69-a831-0e4b1a86bb29" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Página Principal" />
+			<column name="url" type="varchar(100)" value="/page/index.html" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina">
+			<column name="id" type="uuid" value="fd0c313f-5ea7-4abb-8e6a-e55254dea7ea" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Conteúdo da Página Principal" />
+			<column name="url" type="varchar(100)" value="/page/component/content_index.html" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina">
+			<column name="id" type="uuid" value="3d650ccf-e677-411d-874f-eed03d8e500c" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Estrutura Básica das Páginas" />
+			<column name="url" type="varchar(100)" value="/page/component/layout.html" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina">
+			<column name="id" type="uuid" value="7da9ef12-9a0f-46dd-ba43-af74319df364" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Página de Tabelas" />
+			<column name="url" type="varchar(100)" value="/page/tables.html" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina">
+			<column name="id" type="uuid" value="fdd78982-b19b-4cf8-ad39-55117640c3f3" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Conteúdo da Página de Tabelas" />
+			<column name="url" type="varchar(100)" value="/page/component/content_tables.html" />
+    	</insert>
+    	<!-- Criando Funcionalidades -->
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="8eb70222-5495-4aac-b258-c2f9de2b9446" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Raiz do Sistema" />
+			<column name="url" type="varchar(100)" value="/" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="4c398f89-e566-4a2e-83da-3b6e8f8d8f77" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Componentes do Index" />
+			<column name="url" type="varchar(100)" value="/component/index" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="7c0d152e-7e23-481b-9767-96b063230fb0" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Componentes do Layout" />
+			<column name="url" type="varchar(100)" value="/component/layout" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="f15be024-865a-4966-b238-676ae6c6d1b9" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Raiz Tabela" />
+			<column name="url" type="varchar(100)" value="/tables" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="af5cb42e-b9ec-4345-9cce-cdd9703a22a5" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Conteúdo da Tabela" />
+			<column name="url" type="varchar(100)" value="/tables/content" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="13014f4d-a3dd-44ed-a61d-34bd9cbabbcd" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Raiz Usuário" />
+			<column name="url" type="varchar(100)" value="/usuario/" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade">
+			<column name="id" type="uuid" value="823bf2f8-05b9-462d-afdb-2bc9a271374e" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Dados do Usuário" />
+			<column name="url" type="varchar(100)" value="/usuario/dados" />
+    	</insert>
+    	<!-- Criando Pagina Perfil -->
+		<insert schemaName="public" tableName="tb_pagina_perfil">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_pagina" type="uuid" value="9f3beaca-f4e3-4a69-a831-0e4b1a86bb29" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina_perfil">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_pagina" type="uuid" value="3d650ccf-e677-411d-874f-eed03d8e500c" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina_perfil">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_pagina" type="uuid" value="7da9ef12-9a0f-46dd-ba43-af74319df364" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina_perfil">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_pagina" type="uuid" value="fdd78982-b19b-4cf8-ad39-55117640c3f3" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_pagina_perfil">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_pagina" type="uuid" value="fd0c313f-5ea7-4abb-8e6a-e55254dea7ea" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+    	</insert>
+    	<!-- Criando Funcionalidade Pagina -->
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="8eb70222-5495-4aac-b258-c2f9de2b9446" />
+			<column name="id_pagina" type="uuid" value="9f3beaca-f4e3-4a69-a831-0e4b1a86bb29" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="4c398f89-e566-4a2e-83da-3b6e8f8d8f77" />
+			<column name="id_pagina" type="uuid" value="fd0c313f-5ea7-4abb-8e6a-e55254dea7ea" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="7c0d152e-7e23-481b-9767-96b063230fb0" />
+			<column name="id_pagina" type="uuid" value="3d650ccf-e677-411d-874f-eed03d8e500c" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="f15be024-865a-4966-b238-676ae6c6d1b9" />
+			<column name="id_pagina" type="uuid" value="7da9ef12-9a0f-46dd-ba43-af74319df364" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="af5cb42e-b9ec-4345-9cce-cdd9703a22a5" />
+			<column name="id_pagina" type="uuid" value="fdd78982-b19b-4cf8-ad39-55117640c3f3" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="13014f4d-a3dd-44ed-a61d-34bd9cbabbcd" />
+			<column name="id_pagina" type="uuid" value="9f3beaca-f4e3-4a69-a831-0e4b1a86bb29" />
+    	</insert>
+		<insert schemaName="public" tableName="tb_funcionalidade_pagina">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="823bf2f8-05b9-462d-afdb-2bc9a271374e" />
+			<column name="id_pagina" type="uuid" value="9f3beaca-f4e3-4a69-a831-0e4b1a86bb29" />
+    	</insert>
+    	<!-- Criando Funcionalidade Pagina -->
+		<insert schemaName="public" tableName="tb_funcionalidade_perfil">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_funcionalidade" type="uuid" value="823bf2f8-05b9-462d-afdb-2bc9a271374e" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+    	</insert>
+    	<!-- Criando Usuário -->
+		<insert schemaName="public" tableName="tb_usuario">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="id_perfil" type="uuid" value="98fa5f2c-3ebe-4a79-9baf-76dfeac699f6" />
+			<column name="login" type="varchar(50)" value="admin" />
+			<column name="nome" type="varchar(100)" value="Administrador" />
+			<column name="cpf" type="varchar(11)" value="12345678909" />
+			<column name="senha" type="varchar(60)" value="$2a$10$jNNroC6yzX8BfXy3gUeWVOnwgorKgn5Dw5EiixSCqbD3O4XZ8ktse" />
+			<column name="email" type="varchar(50)" value="wanda.architecture@gmail.com" />
+    	</insert>
+	</changeSet>
+</databaseChangeLog>

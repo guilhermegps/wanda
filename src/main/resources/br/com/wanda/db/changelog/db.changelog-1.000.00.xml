@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<!-- Criação das estruturas de acesso -->
+            
+	<changeSet author="guilherme.gps" id="changelog-1.000.00">
+        <sql>
+        	CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+        </sql>
+        
+		<createTable tableName="tb_pagina">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="12345">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="descricao" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="url" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+
+		<createTable tableName="tb_perfil">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="12345">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="descricao" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="tb_funcionalidade">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="12345">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="descricao" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="url" type="VARCHAR(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+
+		<createTable tableName="tb_funcionalidade_perfil">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_funcionalidade" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_perfil" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_funcionalidade"  
+            baseTableName="tb_funcionalidade_perfil"  
+            baseTableSchemaName="public"  
+            constraintName="fk_funcionalidade_perfil_funcionalidade"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_funcionalidade"  
+            referencedTableSchemaName="public" /> 
+		
+		<addForeignKeyConstraint  baseColumnNames="id_perfil"  
+            baseTableName="tb_funcionalidade_perfil"  
+            baseTableSchemaName="public"  
+            constraintName="fk_funcionalidade_perfil_perfil"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_perfil"  
+            referencedTableSchemaName="public" /> 
+            
+        <addUniqueConstraint  columnNames="id_funcionalidade, id_perfil"  
+            constraintName="const_uniq_tb_funcionalidade_perfil"  
+            schemaName="public"  
+            tableName="tb_funcionalidade_perfil"/> 
+
+		<createTable tableName="tb_usuario">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="12345">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_perfil" type="UUID">
+				<constraints nullable="true" />
+			</column>
+			<column name="login" type="VARCHAR(50)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="nome" type="VARCHAR(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="cpf" type="VARCHAR(11)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="senha" type="VARCHAR(60)">
+				<constraints nullable="false" />
+			</column>
+			<column name="email" type="VARCHAR(50)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_perfil"  
+            baseTableName="tb_usuario"  
+            baseTableSchemaName="public"  
+            constraintName="fk_usuario_perfil"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_perfil"  
+            referencedTableSchemaName="public" /> 
+
+		<createTable tableName="tb_funcionalidade_pagina">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_funcionalidade" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_pagina" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_funcionalidade"  
+            baseTableName="tb_funcionalidade_pagina"  
+            baseTableSchemaName="public"  
+            constraintName="fk_funcionalidade_pagina_funcionalidade"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_funcionalidade"  
+            referencedTableSchemaName="public" /> 
+		
+		<addForeignKeyConstraint  baseColumnNames="id_pagina"  
+            baseTableName="tb_funcionalidade_pagina"  
+            baseTableSchemaName="public"  
+            constraintName="fk_funcionalidade_pagina_pagina"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_pagina"  
+            referencedTableSchemaName="public" /> 
+            
+        <addUniqueConstraint  columnNames="id_funcionalidade, id_pagina"  
+            constraintName="const_uniq_tb_funcionalidade_pagina"  
+            schemaName="public"  
+            tableName="tb_funcionalidade_pagina"/> 
+
+		<createTable tableName="tb_pagina_perfil">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="id_pagina" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+			<column name="id_perfil" type="UUID">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_pagina"  
+            baseTableName="tb_pagina_perfil"  
+            baseTableSchemaName="public"  
+            constraintName="fk_pagina_perfil_pagina"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_pagina"  
+            referencedTableSchemaName="public" /> 
+		
+		<addForeignKeyConstraint  baseColumnNames="id_perfil"  
+            baseTableName="tb_pagina_perfil"  
+            baseTableSchemaName="public"  
+            constraintName="fk_pagina_perfil_perfil"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_perfil"  
+            referencedTableSchemaName="public" />
+            
+        <addUniqueConstraint  columnNames="id_pagina, id_perfil"  
+            constraintName="const_uniq_tb_pagina_perfil"  
+            schemaName="public"  
+            tableName="tb_pagina_perfil"/> 
+            
+	</changeSet>
+</databaseChangeLog>
