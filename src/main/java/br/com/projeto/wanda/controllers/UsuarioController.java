@@ -2,6 +2,7 @@ package br.com.projeto.wanda.controllers;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -16,10 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import br.com.projeto.wanda.WLogger;
 import br.com.projeto.wanda.exception.CampoInvalidoException;
 import br.com.projeto.wanda.model.Usuario;
+import br.com.projeto.wanda.model.dto.MenuDTO;
 import br.com.projeto.wanda.model.dto.ResponseDTO;
 import br.com.projeto.wanda.model.dto.UsuarioDTO;
 import br.com.projeto.wanda.model.dto.UsuarioUserDetails;
 import br.com.projeto.wanda.model.enums.ResponseEnum;
+import br.com.projeto.wanda.services.MenuService;
 import br.com.projeto.wanda.services.SessionService;
 import br.com.projeto.wanda.services.UsuarioService;
 
@@ -32,6 +35,8 @@ import br.com.projeto.wanda.services.UsuarioService;
 public class UsuarioController {
 	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private MenuService menuService;
 
 	@GetMapping("/registrar")
 	public String paginaRegistro(HttpServletResponse response) throws IOException {
@@ -72,6 +77,10 @@ public class UsuarioController {
 	@ResponseBody
 	@GetMapping("/dados")
 	public UsuarioDTO dados(){
-		return UsuarioDTO.convert(SessionService.usuarioAtual().getUsuario());
+		Usuario usuario = SessionService.usuarioAtual().getUsuario();
+		UsuarioDTO usuarioDTO = UsuarioDTO.convert(usuario);
+		List<MenuDTO> listaMenus = menuService.listarPorUsuario(usuario.getId());
+		usuarioDTO.setListaMenus(listaMenus);
+		return usuarioDTO;
 	}
 }

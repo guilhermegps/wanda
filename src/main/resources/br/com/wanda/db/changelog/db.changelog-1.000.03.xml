@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<!-- Inserindo dados de acesso básicos -->
+	<changeSet author="guilherme.gps" id="changelog-1.000.02">
+		<createTable tableName="tb_menu">
+			<column name="id" type="UUID" defaultValueComputed="uuid_generate_v4()">
+				<constraints nullable="false" primaryKey="true" unique="true" />
+			</column>
+			<column name="codigo" type="BIGINT" autoIncrement="true" startWith="12345">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="ativo" type="BOOL" defaultValueBoolean="true">
+				<constraints nullable="false" />
+			</column>
+			<column name="data_registro" type="TIMESTAMP" defaultValueComputed="NOW()">
+				<constraints nullable="false" />
+			</column>
+			<column name="descricao" type="VARCHAR(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ordem" type="INT4">
+				<constraints nullable="true" />
+			</column>
+			<column name="icone" type="VARCHAR(50)">
+				<constraints nullable="true" />
+			</column>
+			<column name="id_funcionalidade" type="UUID">
+				<constraints nullable="true"/>
+			</column>
+			<column name="id_menu_pai" type="UUID">
+				<constraints nullable="true"/>
+			</column>
+		</createTable>
+		
+		<addForeignKeyConstraint  baseColumnNames="id_funcionalidade"  
+            baseTableName="tb_menu"  
+            baseTableSchemaName="public"  
+            constraintName="fk_menu_funcionalidade"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_funcionalidade"  
+            referencedTableSchemaName="public" /> 
+		
+		<addForeignKeyConstraint  baseColumnNames="id_menu_pai"  
+            baseTableName="tb_menu"  
+            baseTableSchemaName="public"  
+            constraintName="fk_menu_menu"  
+            referencedColumnNames="id"  
+            referencedTableName="tb_menu"  
+            referencedTableSchemaName="public" /> 
+            
+        <!-- Inserindo Menus de Páginas -->
+        <insert schemaName="public" tableName="tb_menu">
+			<column name="id" type="uuid" value="f817711f-7934-43b0-80cf-189d6e27df99" />
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Funcionalidades" />
+			<column name="icone" type="varchar(50)" value="fa-folder" />
+			<column name="ordem" type="INT4" value="1" />
+    	</insert>
+        <insert schemaName="public" tableName="tb_menu">
+			<column name="ativo" type="bool" valueBoolean="true" />
+			<column name="data_registro" type="timestamp" valueDate="CURRENT_TIMESTAMP" />
+			<column name="descricao" type="varchar(50)" value="Tabelas" />
+			<column name="ordem" type="INT4" value="1" />
+			<column name="icone" type="varchar(50)" value="fa-table" />
+			<column name="id_funcionalidade" type="uuid" value="f15be024-865a-4966-b238-676ae6c6d1b9" />
+			<column name="id_menu_pai" type="uuid" value="f817711f-7934-43b0-80cf-189d6e27df99" />
+    	</insert>
+	</changeSet>
+</databaseChangeLog>

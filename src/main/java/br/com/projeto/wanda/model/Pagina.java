@@ -33,9 +33,12 @@ public class Pagina extends UUIDEntityWithCodigo {
 	private String descricao;
 
 	@Basic
-	@Column(length = 50, nullable = false)
+	@Column(length = 100, nullable = false)
 	private String url;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pagina")
 	private Set<FuncionalidadePagina> funcionalidadesPagina;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pagina")
+	private Set<PaginaPerfil> paginasPerfil;
 }

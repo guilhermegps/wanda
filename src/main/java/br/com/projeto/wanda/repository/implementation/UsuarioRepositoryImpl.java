@@ -9,6 +9,10 @@ import br.com.projeto.wanda.WLogger;
 import br.com.projeto.wanda.model.Usuario;
 import br.com.projeto.wanda.repository.UsuarioRepositoryCustom;
 
+/**
+ * @author <a href="https://github.com/guilhermegps"> Guilherme GPS </a>
+ * 
+ */
 public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
     @PersistenceContext
     EntityManager entityManager;

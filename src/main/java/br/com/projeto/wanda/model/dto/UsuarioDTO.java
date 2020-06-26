@@ -2,6 +2,7 @@ package br.com.projeto.wanda.model.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -37,6 +38,8 @@ public class UsuarioDTO implements Serializable {
 	private String email;
 	private Boolean ativo;
 	private Date dataRegistro;
+	
+	private List<MenuDTO> listaMenus;
 	
 	public static UsuarioDTO convert(Usuario usuario) {
 		return UsuarioDTO.builder()
