@@ -27,9 +27,11 @@ public class MenuDTO implements Serializable {
 	private String descricao;
 	private Integer ordem;
 	private String icone;
+	private String url;
 	
 	private Long codMenuPai;
 	private String descMenuPai;
 	private Integer ordemMenuPai;
+	private String iconeMenuPai;
 	
 }

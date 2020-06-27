@@ -28,8 +28,10 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom{
 				+ " m.descricao,"
 				+ " m.ordem,"
 				+ " m.icone,"
+				+ " f.url,"
 				+ " mp.codigo as cod_menu_pai,"
 				+ " mp.descricao as desc_menu_pai,"
+				+ " mp.icone as icone_menu_pai,"
 				+ " mp.ordem as ordem_menu_pai"
 			+ " from tb_menu m "
 			+ " left join tb_funcionalidade_perfil f_p on(f_p.id_funcionalidade = m.id_funcionalidade)"
@@ -41,7 +43,8 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom{
 			+ " inner join tb_usuario u on(u.id_perfil = p.id)"
 			+ " where p.ativo = true"
 			+ " and f.ativo = true"
-			+ " and u.id = :idUsuario";
+			+ " and u.id = :idUsuario"
+			+ " order by mp.ordem, m.ordem";
 		
 		Query query = entityManager.createNativeQuery(sql, MenuDTO.class);
 		query.setParameter("idUsuario", idUsuario);
