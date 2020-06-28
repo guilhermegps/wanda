@@ -26,13 +26,12 @@
 	});
 
 	function montarSidebar(lista){
-		let itensMenu = {};
 		$.each(lista, function(index, menu) {
 			let ativo = (!isBlank(menu.url) && menu.url==window.location.pathname) ? true : false;
 			if(menu.codMenuPai!=null){
-				if(isBlank(itensMenu[menu.codMenuPai])){
-					itensMenu[menu.codMenuPai] = $(`
-						<li class="nav-item">
+				if(isBlank($(`#item-${menu.codMenuPai}`).html())){
+					$('#sidebarBody').append(`
+						<li class="nav-item" id="item-${menu.codMenuPai}">
 							<a class="nav-link collapsed" href="#"
 									data-toggle="collapse" data-target="#collapse-${menu.codMenuPai}"
 									aria-expanded="true" aria-controls="collapse-${menu.codMenuPai}"> 
@@ -47,16 +46,16 @@
 						</li>
 					`);
 				}
-				itensMenu[menu.codMenuPai].children('div.collapse').children('div.collapse-inner').append(`
+				$(`#item-${menu.codMenuPai} div.collapse div.collapse-inner`).append(`
 					<a class="collapse-item ${ativo ? 'active' : ''}" href="${menu.url}">${menu.descricao}</a>
 				`);
 				if(ativo){
-					itensMenu[menu.codMenuPai].addClass('active');
-					itensMenu[menu.codMenuPai].children('a.nav-link').removeClass('collapsed');
-					itensMenu[menu.codMenuPai].children('div.collapse').addClass('show');
+					$(`#item-${menu.codMenuPai}`).addClass('active');
+					$(`#item-${menu.codMenuPai} a.nav-link`).removeClass('collapsed');
+					$(`#item-${menu.codMenuPai} div.collapse`).addClass('show');
 				}
 			} else if(!isBlank(menu.url)){
-				itensMenu[menu.codigo] = $(`
+				$('#sidebarBody').append(`
 					<hr class="sidebar-divider">
 					<li class="nav-item ${ativo ? 'active' : ''}">
 						<a class="nav-link" href="${menu.url}"> 
@@ -66,10 +65,6 @@
 					</li>
 				`);
 			}
-		});
-		
-		$.each(itensMenu, function(index, item) {
-			$('#sidebarBody').append(item);
 		});
 	}
 })(jQuery); // End of use strict
