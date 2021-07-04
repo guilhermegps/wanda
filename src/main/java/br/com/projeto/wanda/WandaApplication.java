@@ -12,8 +12,8 @@ import br.com.projeto.wanda.repository.base.BaseRepositoryImpl;
  */
 @EnableJpaRepositories(repositoryBaseClass = BaseRepositoryImpl.class)
 @SpringBootApplication
-public class Main {
+public class WandaApplication {
    public static void main(String[] args) {
-      SpringApplication.run(Main.class, args);
+      SpringApplication.run(WandaApplication.class, args);
    }
 }

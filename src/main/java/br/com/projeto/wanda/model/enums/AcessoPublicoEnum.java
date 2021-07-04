@@ -1,5 +1,7 @@
 package br.com.projeto.wanda.model.enums;
 
+import org.apache.commons.lang3.StringUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -16,9 +18,10 @@ public enum AcessoPublicoEnum {
 	
 	private String url;
     
-    public static boolean contains(String url) {
+    public static boolean allow(String url) {
     	for (AcessoPublicoEnum acesso : values())
-			if(acesso.getUrl().equals(url))
+			if(StringUtils.isNotBlank(url) 
+					&& url.matches(acesso.getUrl()))
 				return true;
     	
     	return false;

@@ -34,7 +34,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
         if (lista!=null && !lista.isEmpty()) {
             return lista.stream()
                     .map(this::configAttribute).collect(Collectors.toList());
-        } else if (AcessoPublicoEnum.contains(urlWithoutContextPath)) {
+        } else if (AcessoPublicoEnum.allow(urlWithoutContextPath)) {
         	return null;
         }
  
