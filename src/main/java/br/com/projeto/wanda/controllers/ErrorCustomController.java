@@ -8,13 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.projeto.wanda.WLogger;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
  * @author <a href="https://github.com/guilhermegps"> Guilherme GPS </a>
  * 
  */
+@Slf4j
 @Controller
 public class ErrorCustomController implements ErrorController {
 
@@ -38,7 +39,7 @@ public class ErrorCustomController implements ErrorController {
                 return "/error/403";
             }
             
-            WLogger.error(String.format("STATUS ERRO REQUISIÇÃO: %d", statusCode));
+            log.error(String.format("STATUS ERRO REQUISIÇÃO: %d", statusCode));
         }
 
         return "/error/error";

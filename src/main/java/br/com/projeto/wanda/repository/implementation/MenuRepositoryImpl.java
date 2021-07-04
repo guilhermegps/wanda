@@ -8,16 +8,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import org.springframework.jdbc.object.SqlQuery;
-
-import br.com.projeto.wanda.WLogger;
 import br.com.projeto.wanda.model.dto.MenuDTO;
 import br.com.projeto.wanda.repository.MenuRepositoryCustom;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author <a href="https://github.com/guilhermegps"> Guilherme GPS </a>
  * 
  */
+@Slf4j
 public class MenuRepositoryImpl implements MenuRepositoryCustom{
     @PersistenceContext
     EntityManager entityManager;
@@ -51,7 +50,7 @@ public class MenuRepositoryImpl implements MenuRepositoryCustom{
         try {
         	 return query.getResultList();
         } catch(NoResultException e) {
-        	WLogger.warn(e);
+        	log.warn(e.getMessage(), e);
         }
         
         return null;

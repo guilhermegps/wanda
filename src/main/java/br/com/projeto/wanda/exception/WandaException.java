@@ -5,7 +5,7 @@ public class WandaException extends RuntimeException {
 	public WandaException() {}
 
 	public WandaException(Exception e) {
-		super(e);
+		super(e.getMessage(), e);
 	}
 
 	public WandaException(String mensagem) {

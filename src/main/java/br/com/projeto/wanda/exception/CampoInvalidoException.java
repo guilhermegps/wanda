@@ -5,7 +5,7 @@ public class CampoInvalidoException extends RuntimeException {
 	public CampoInvalidoException() {}
 
 	public CampoInvalidoException(Exception e) {
-		super(e);
+		super(e.getMessage(), e);
 	}
 
 	public CampoInvalidoException(String mensagem) {

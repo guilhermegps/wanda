@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import br.com.projeto.wanda.WLogger;
 import liquibase.integration.spring.SpringLiquibase;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Configuration
 public class LiquibaseConfiguration {
 	@Autowired
@@ -21,7 +22,7 @@ public class LiquibaseConfiguration {
 		    liquibase.setChangeLog("classpath:br/com/wanda/db/changelog/db.changelog-master.xml");
 		    liquibase.setDataSource(dataSource);
 	    } catch(Exception e) {
-	    	WLogger.error(e);
+	    	log.error(e.getMessage(), e);
 	    }
 	    return liquibase;
 	}

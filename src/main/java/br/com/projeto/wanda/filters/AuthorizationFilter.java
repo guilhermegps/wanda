@@ -15,9 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
-
-import br.com.projeto.wanda.WLogger;
 
 @Component
 @Order(1)
@@ -35,7 +32,7 @@ public class AuthorizationFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequest req = (HttpServletRequest) request;
-//		WLogger.debug(req.getRequestURI());
+//		log.debug(req.getRequestURI());
 		
 		if(!req.getRequestURI().equals("/logout")) {
 			CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class

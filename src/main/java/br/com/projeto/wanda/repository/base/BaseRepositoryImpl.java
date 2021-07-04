@@ -2,7 +2,6 @@ package br.com.projeto.wanda.repository.base;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.Transient;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,7 +24,6 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
@@ -41,12 +38,13 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.projeto.wanda.WLogger;
 import br.com.projeto.wanda.exception.WandaException;
 import br.com.projeto.wanda.model.entity.base.BaseEntity;
 import br.com.projeto.wanda.utils.FetchParametro;
 import br.com.projeto.wanda.utils.QueryParametro;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable> extends SimpleJpaRepository<T, K>
 		implements BaseRepository<T, K> {
 
@@ -297,7 +295,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 //
 //			return getPage(criteria, paginacao, null, null);
 //		} catch (Exception e) {
-//			WLogger.error(e);
+//			log.error(e.getMessage(), e);
 //			return null;
 //		}
 //	}
@@ -310,7 +308,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 //
 //			return getPage(criteria, paginacao, null, fetchs);
 //		} catch (Exception e) {
-//			WLogger.error(e);
+//			log.error(e.getMessage(), e);
 //			return null;
 //		}
 //	}
@@ -323,7 +321,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 //
 //			return getPage(criteria, paginacao, orders, fetchs);
 //		} catch (Exception e) {
-//			WLogger.error(e);
+//			log.error(e.getMessage(), e);
 //			return null;
 //		}
 //	}
@@ -383,7 +381,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 //						}
 //					}
 //				} catch (Exception e) {
-//					WLogger.debug(e);
+//					log.debug(e.getMessage(), e);
 //				}
 //			}
 //		}
@@ -491,7 +489,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 			}).collect(Collectors.toList()).isEmpty();
 
 		} catch (NoSuchFieldException | IllegalAccessException e) {
-			WLogger.debug(e);
+			log.debug(e.getMessage(), e);
 		}
 		return false;
 	}
@@ -563,7 +561,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 			query.setMaxResults(10);
 			return query.getResultList();
 		} catch (Exception e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return Collections.emptyList();
 		} finally {
 			entityClassAlternativo = null;
@@ -653,7 +651,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 					null, null, null);
 			return criteria.list();
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return Collections.emptyList();
 		}
 	}
@@ -801,7 +799,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 		try {
 			return getSession().createCriteria(getEntityClass()).list();
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return Collections.emptyList();
 		}
 	}
@@ -813,7 +811,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 			setFetchs(criteria, fetchs);
 			return criteria.list();
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return Collections.emptyList();
 		}
 	}
@@ -842,7 +840,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 
 			return page;
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -855,7 +853,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 			return getPage(criteria, paginacao, null, null);
 
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -875,7 +873,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 
 			return (T) criteria.uniqueResult();
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return null;
 		}
 	}
@@ -895,7 +893,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 					joinType, null, null);
 			return criteria.list();
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return Collections.emptyList();
 		}
 	}
@@ -917,7 +915,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
 
 			return criteria.list();
 		} catch (HibernateException e) {
-			WLogger.error(e);
+			log.error(e.getMessage(), e);
 			return Collections.emptyList();
 		}
 	}
@@ -967,7 +965,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
             }
             return obterPorId(id);
         } catch (Exception e) {
-            WLogger.error(e);
+            log.error(e.getMessage(), e);
             return null;
         }
     }
@@ -987,7 +985,7 @@ public class BaseRepositoryImpl<T extends BaseEntity<K>, K extends Serializable>
             setFetchs(criteria, fetchs);
             return (T) criteria.uniqueResult();
         } catch (Exception e) {
-            WLogger.error(e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
             return null;
         }

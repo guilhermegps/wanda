@@ -5,14 +5,15 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import br.com.projeto.wanda.WLogger;
 import br.com.projeto.wanda.model.Usuario;
 import br.com.projeto.wanda.repository.UsuarioRepositoryCustom;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author <a href="https://github.com/guilhermegps"> Guilherme GPS </a>
  * 
  */
+@Slf4j
 public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
     @PersistenceContext
     EntityManager entityManager;
@@ -33,7 +34,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepositoryCustom {
         try {
         	 return (Usuario) query.getSingleResult();
         } catch(NoResultException e) {
-        	WLogger.warn(e);
+        	log.warn(e.getMessage(), e);
         }
         
         return null;
